@@ -11,13 +11,13 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
       component: Home
     },
 
     {
-      path: '/cropper',
+      path: '/',
       name: 'Cropper',
       component: Cropper
     },
