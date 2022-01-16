@@ -12,7 +12,6 @@
     </div>
     <el-row class="cropper-row">
   <el-col :xs="24" :sm="{span:8,offset:8}">
-      {{previews.img&&previews.img.width}}
       <div class="cut">
       <vue-cropper
         ref="cropper"
@@ -40,21 +39,16 @@
       ></vue-cropper>
 
     <div
-      :style="{
-        width: previews.w + 'px',
-        height: previews.h + 'px',
-        overflow: 'hidden'
-      }"
+
       class="cropper-show"
     >
       <div :style="previews.div">
-          <!-- :style="previews.img -->
         <img
-        :style="{width:previews.img&&previews.img.width,
-        height:previews.img&&previews.img.height,
-    transform: 'scale(2.10099, 2.10099) translate3d(30.7832px, 44.9313px, 0px) rotateZ(0deg)',
-        }"
-         src="static/face.png" alt="" />
+        :style="previews.img"
+         src="static/face.png" alt=""
+         class="previewImg"
+
+          />
       </div>
     </div>
     </div>
@@ -74,17 +68,17 @@
           />
         </el-col>
         <el-col :xs="12" :sm="6">
-          <el-button type="success" class="btn" plain @click="clearCrop"
+          <el-button type="primary" class="btn" plain @click="clearCrop"
             >CLEAR
           </el-button>
         </el-col>
         <el-col :xs="12" :sm="6">
-          <el-button type="success" class="btn" plain @click="refreshCrop">
+          <el-button type="primary" class="btn" plain @click="refreshCrop">
             REFRESH
           </el-button>
         </el-col>
         <el-col :xs="12" :sm="6">
-          <el-button type="success" class="btn" plain @click="down('blob')">
+          <el-button type="primary" class="btn" plain @click="down('blob')">
             NEXT
           </el-button>
         </el-col>
@@ -140,6 +134,9 @@ export default {
   mounted () {},
 
   methods: {
+    handleNextClick () {
+      return this.$router.push('/step1')
+    },
     clearCrop () {
       // clear
       this.$refs.cropper.clearCrop()
@@ -252,7 +249,7 @@ export default {
   max-width: 1272px;
   padding: 0 16px;
   margin: 0 auto;
-&-row{
+.cropper-row{
     margin: 30px 0;
 }
   .cut {
@@ -263,11 +260,14 @@ export default {
   }
   .cropper-show {
     position: absolute;
-    opacity: 0.8;
+    opacity: 0.3;
     border: 3px dashed red;
     pointer-events: none;
     top: 0;
-    left: 9%;
+    left: 11%;
+    .previewImg{
+      margin-left: -40%;
+    }
   }
 }
 .test-button {
@@ -316,16 +316,4 @@ export default {
   margin: 16px 5%;
   color: red;
 }
-.show-preview2{
-    flex: 1;
-    -webkit-flex: 1;
-    display: flex;
-    display: -webkit-flex;
-    justify-content: center;
-    .preview{
-      overflow: hidden;
-      border:1px solid #67c23a;
-      background: #cccccc;
-    }
-  }
 </style>

@@ -6,11 +6,25 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/ama': {
+        target: 'https://wgt24czo0e.execute-api.ap-northeast-1.amazonaws.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/ama': '/'
+        }
+      },
+      '/b': {
+        target: 'https://4zcntep4rj.execute-api.us-east-1.amazonaws.com/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/b': '/'
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
