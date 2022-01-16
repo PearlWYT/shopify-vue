@@ -51,7 +51,7 @@ export default {
   computed: {
     message () {
       const path = this.$route.query.filePath
-      return `http://localhost:8081/#/model?filePath=${path}`
+      return `https://fdwig.com/#/model?filePath=${path}`
     }
   },
   methods: {

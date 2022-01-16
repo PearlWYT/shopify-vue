@@ -9,7 +9,7 @@
     <el-popover
     placement="top-start"
     title="标题"
-    width="350"
+    width="300"
     trigger="hover"
     >
     <img alt="Empty bag" width="100%" src="static/WechatIMG68.jpeg" />
@@ -19,12 +19,12 @@
   <el-form
     :model="ruleForm"
     ref="ruleForm"
-    label-width="100px"
+    label-width="85px"
     class="demo-ruleForm"
   >
 
     <el-row :gutter="20">
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="23" :sm="12">
         <el-form-item label="Hair style" prop="shape">
           <el-select
             class="stemp-select"
@@ -41,7 +41,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="23" :sm="12">
         <el-form-item label="Hair Color" prop="color">
           <el-select
             class="stemp-select"
@@ -58,7 +58,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="23" :sm="12">
         <el-form-item label="Hair Length" prop="color">
           <el-select
             class="stemp-select"

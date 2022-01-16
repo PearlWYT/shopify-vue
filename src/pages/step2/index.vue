@@ -16,7 +16,7 @@
   >
 
     <el-row :gutter="20">
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="22" :sm="12">
         <el-form-item label="Hair Density " prop="shape">
           <el-select
             class="stemp-select"
@@ -33,7 +33,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="22" :sm="12">
         <el-form-item label="Lace Material" prop="color">
           <el-select
             class="stemp-select"
@@ -50,7 +50,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="22" :sm="12">
         <el-form-item label="Cap Construction" prop="color">
           <el-select
             class="stemp-select"
@@ -68,7 +68,7 @@
         </el-form-item>
       </el-col>
 
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="22" :sm="12">
         <el-form-item label="Hair Line" prop="color">
           <el-select
             class="stemp-select"
@@ -85,7 +85,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="22" :sm="12">
         <el-form-item label="Cap Size" prop="color">
           <el-select
             class="stemp-select"
@@ -102,7 +102,7 @@
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col :xs="24" :sm="12">
+      <el-col :xs="22" :sm="12">
         <el-form-item label="Add Elastic Bands" prop="color">
           <el-select
             class="stemp-select"
