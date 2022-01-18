@@ -11,49 +11,46 @@
       cause. Please come back for better experience.
     </div>
     <el-row class="cropper-row">
-  <el-col :xs="24" :sm="{span:8,offset:8}">
-      <div class="cut">
-      <vue-cropper
-        ref="cropper"
-        :img="option.img"
-        :output-size="option.size"
-        :output-type="option.outputType"
-        :info="true"
-        :full="option.full"
-        :fixed="fixed"
-        :fixed-number="fixedNumber"
-        :can-move="option.canMove"
-        :can-move-box="option.canMoveBox"
-        :fixed-box="option.fixedBox"
-        :original="option.original"
-        :auto-crop="option.autoCrop"
-        :auto-crop-width="option.autoCropWidth"
-        :auto-crop-height="option.autoCropHeight"
-        :center-box="option.centerBox"
-        :high="option.high"
-        mode="cover"
-        :max-img-size="option.max"
-        @real-time="realTime"
-        @img-load="imgLoad"
-        @crop-moving="cropMoving"
-      ></vue-cropper>
+      <el-col :xs="24" :sm="{ span: 8, offset: 8 }">
+        <div class="cut">
+          <vue-cropper
+            ref="cropper"
+            :img="option.img"
+            :output-size="option.size"
+            :output-type="option.outputType"
+            :info="true"
+            :full="option.full"
+            :fixed="fixed"
+            :fixed-number="fixedNumber"
+            :can-move="option.canMove"
+            :can-move-box="option.canMoveBox"
+            :fixed-box="option.fixedBox"
+            :original="option.original"
+            :auto-crop="option.autoCrop"
+            :auto-crop-width="option.autoCropWidth"
+            :auto-crop-height="option.autoCropHeight"
+            :center-box="option.centerBox"
+            :high="option.high"
+            mode="cover"
+            :max-img-size="option.max"
+            @real-time="realTime"
+            @img-load="imgLoad"
+            @crop-moving="cropMoving"
+          ></vue-cropper>
 
-    <div
-
-      class="cropper-show"
-    >
-      <div :style="previews.div">
-        <img
-        :style="previews.img"
-         src="static/face.png" alt=""
-         class="previewImg"
-
-          />
-      </div>
-    </div>
-    </div>
-  </el-col>
-</el-row>
+          <div class="cropper-show">
+            <div :style="previews.div">
+              <img
+                :style="previews.img"
+                src="static/face.png"
+                alt=""
+                class="previewImg"
+              />
+            </div>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
     <div class="test-button">
       <el-row :gutter="10">
         <el-col :xs="12" :sm="6">
@@ -155,7 +152,7 @@ export default {
       event.preventDefault()
       // 输出;
       if (type === 'blob') {
-        this.$refs.cropper.getCropBlob(data => {
+        this.$refs.cropper.getCropBlob((data) => {
           const isJpgOrPng =
             data.type === 'image/jpeg' || data.type === 'image/png'
           // const isLt2M = data.size / 1024 / 1024 < 2;
@@ -167,12 +164,12 @@ export default {
           //   // this.$message.error('上传头像图片大小不能超过 2MB!');
           //   return false;
           // }
-          return new Promise(resolve => {
+          return new Promise((resolve) => {
             compressAccurately(data, {
               with: 480,
               height: 640
-            }).then(res => {
-              this.$refs.cropper.getCropData(res => {
+            }).then((res) => {
+              this.$refs.cropper.getCropData((res) => {
                 this.downImg = res
                 const newData = res.split('base64,')[1]
                 const info = {
@@ -180,7 +177,6 @@ export default {
                   data: newData
                 }
                 window.localStorage.setItem('info', JSON.stringify(info))
-                // this.$store.dispatch('addForm', info);
                 this.handleNextClick()
               })
               resolve(res)
@@ -188,14 +184,8 @@ export default {
           })
         })
       } else {
-        this.$refs.cropper.getCropData(data => {
+        this.$refs.cropper.getCropData((data) => {
           this.downImg = data
-          // const newData = data.split('base64,')[1]
-          // const info = {
-          //   name: this.option.name,
-          //   data: newData
-          // }
-          // this.$store.dispatch('addForm', info);
           this.handleNextClick()
         })
       }
@@ -209,7 +199,7 @@ export default {
         return false
       }
       const reader = new FileReader()
-      reader.onload = e => {
+      reader.onload = (e) => {
         let data
         if (typeof e.target.result === 'object') {
           // 把Array Buffer转化为blob 如果是base64不需要
@@ -249,9 +239,9 @@ export default {
   max-width: 1272px;
   padding: 0 16px;
   margin: 0 auto;
-.cropper-row{
+  .cropper-row {
     margin: 30px 0;
-}
+  }
   .cut {
     position: sticky;
     width: auto;
@@ -265,7 +255,7 @@ export default {
     pointer-events: none;
     top: 0;
     left: 11%;
-    .previewImg{
+    .previewImg {
       margin-left: -40%;
     }
   }

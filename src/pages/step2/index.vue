@@ -119,7 +119,6 @@
           </el-select>
         </el-form-item>
       </el-col>
-
     </el-row>
 
     <el-form-item >
@@ -132,8 +131,9 @@
 </template>
 
 <script>
+import {sum} from 'lodash'
 export default {
-  name: 'Stemp1',
+  name: 'Stemp2',
   data () {
     return {
       ruleForm: {
@@ -147,39 +147,42 @@ export default {
       visible: false,
       loading: false,
       densities: [
-        { label: '150%', value: '150%' },
-        { label: '180%', value: '180%' }
+        { label: '150%', value: '150%', price: 0 },
+        { label: '180%', value: '180%', price: 10 }
       ],
       laceMaterials: [
-        { label: 'HD Lace', value: 'hd lace' },
-        { label: 'Normal Lace', value: 'normal lace' }
+        { label: 'HD Lace', value: 'hd lace', price: 10 },
+        { label: 'Normal Lace', value: 'normal lace', price: 0 }
       ],
       caps: [
         {
           label: '4 Parting Glueless Lace Front Crap',
-          value: '4 parting glueless lace front crap'
+          value: '4 parting glueless lace front crap',
+          price: 0
         },
         {
           label: '6 Deep Parting Glueless Lace Front Crap',
-          value: '6 deep parting glueless lace front crap'
+          value: '6 deep parting glueless lace front crap',
+          price: 20
         },
         {
           label: 'Glueless 5*5 Closure Lace Cap',
-          value: 'glueless 5*5 closure lace cap'
+          value: 'glueless 5*5 closure lace cap',
+          price: 20
         },
-        { label: '13*4 Lace Cap', value: '13*4 lace cap' },
-        { label: '13*4*1 Lace Cap', value: '13*4*1 lace cap' },
-        { label: '13*6 Lace Cap', value: '13*6 lace cap' }
+        { label: '13*4 Lace Cap', value: '13*4 lace cap', price: 20 },
+        { label: '13*4*1 Lace Cap', value: '13*4*1 lace cap', price: 20 },
+        { label: '13*6 Lace Cap', value: '13*6 lace cap', price: 20 }
       ],
       hairLines: [
-        { label: 'Natural Hair Line', value: 'natural hair line' },
-        { label: 'Pre-plucked HairLine', value: 'pre-plucked hair line' }
+        { label: 'Natural Hair Line', value: 'natural hair line', price: 0 },
+        { label: 'Pre-plucked HairLine', value: 'pre-plucked hair line', price: 0 }
       ],
       capSizes: [
-        { label: 'Average', value: 'average' },
-        { label: 'Petite', value: 'petite' },
-        { label: 'Large', value: 'large' },
-        { label: 'Custom ', value: 'custom' }
+        { label: 'Average', value: 'average', price: 0},
+        { label: 'Petite', value: 'petite', price: 0 },
+        { label: 'Large', value: 'large', price: 0},
+        { label: 'Custom ', value: 'custom', price: 10 }
       ],
       addElasticBands: [
         { label: 'Yes', value: 'yes' },
@@ -194,7 +197,18 @@ export default {
       requestId: ''
     }
   },
-
+  computed: {
+    // 获取总价格
+    sumPrice2 () {
+      const densityPrice = this.densities.find(i => i.value === this.ruleForm.density).price
+      const laceMaterialPrice = this.laceMaterials.find(i => i.value === this.ruleForm.laceMaterial).price
+      const capPrice = this.caps.find(i => i.value === this.ruleForm.cap).price
+      const hairLinePrice = this.hairLines.find(i => i.value === this.ruleForm.hairLine).price
+      const capSizePrice = this.capSizes.find(i => i.value === this.ruleForm.capSize).price
+      const sumPrice = this.$route.query.sumPrice
+      return sum([densityPrice, laceMaterialPrice, capPrice, hairLinePrice, capSizePrice, Number(sumPrice)])
+    }
+  },
   mounted () {
     this.stopSetInterval()
     this.filePath = window.localStorage.getItem('filePath')
@@ -237,10 +251,12 @@ export default {
               message: 'Success',
               type: 'success'
             })
+
             this.$router.push({
               path: '/model',
               query: {
-                filePath: this.filePath
+                filePath: this.filePath,
+                sumPrice: this.sumPrice2
               }
             })
           } else if (data.status === 'timeout') {

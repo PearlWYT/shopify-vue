@@ -76,7 +76,6 @@
         </el-form-item>
       </el-col>
     </el-row>
-
     <el-form-item >
       <el-button class="btn" type="primary" @click="submitForm('ruleForm')">
         Next
@@ -87,6 +86,7 @@
 </template>
 
 <script>
+import {sum} from 'lodash'
 export default {
   name: 'Stemp1',
   data () {
@@ -99,36 +99,44 @@ export default {
       visible: false,
       loading: false,
       shapes: [
-        { label: 'ST', value: 'st' },
-        { label: 'Body', value: 'body' },
-        { label: 'Curls', value: 'curls' },
-        { label: 'Yaki', value: 'yaki' },
-        { label: 'Bob', value: 'bob' }
+        { label: 'ST', value: 'st', price: 189},
+        { label: 'Body', value: 'body', price: 199},
+        { label: 'Curls', value: 'curls', price: 199},
+        { label: 'Yaki', value: 'yaki', price: 199 },
+        { label: 'Bob', value: 'bob', price: 79}
       ],
       lengths: [
-        { label: '8 Inch', value: '8' },
-        { label: '10 Inch', value: '10' },
-        { label: '12 Inch', value: '12' },
-        { label: '14 Inch', value: '14' },
-        { label: '16 Inch', value: '16' },
-        { label: '18 Inch ', value: '18' },
-        { label: '20 Inch ', value: '20' },
-        { label: '22 Inch ', value: '22' },
-        { label: '24 Inch ', value: '24' },
-        { label: '26 Inch', value: '26' }
+        { label: '8 Inch', value: '8', price: 0 },
+        { label: '10 Inch', value: '10', price: 0 },
+        { label: '12 Inch', value: '12', price: 0},
+        { label: '14 Inch', value: '14', price: 0},
+        { label: '16 Inch', value: '16', price: 0},
+        { label: '18 Inch ', value: '18', price: 10 },
+        { label: '20 Inch ', value: '20', price: 30 },
+        { label: '22 Inch ', value: '22', price: 40 },
+        { label: '24 Inch ', value: '24', price: 60 },
+        { label: '26 Inch', value: '26', price: 80 }
       ],
       colors: [
-        { color: 'black', name: 'Black' },
-        // eslint-disable-next-line standard/object-curly-even-spacing
-        { color: 'winered', name: 'Wine Red' },
-        { color: 'darkpurple', name: 'Dark Purple' },
-        { color: 'blue', name: 'Blue' },
-        { color: 'platinumblonde', name: 'Platinum Blonde' }
+        { color: 'black', name: 'Black', price: 0 },
+        { color: 'winered', name: 'Wine Red', price: 10},
+        { color: 'darkpurple', name: 'Dark Purple', price: 10},
+        { color: 'blue', name: 'Blue', price: 10 },
+        { color: 'platinumblonde', name: 'Platinum Blonde', price: 10 }
       ]
     }
   },
+  computed: {
+    // 获取总价格
+    sumPrice () {
+      const shapePrice = this.shapes.find(i => i.value === this.ruleForm.shape).price
+      const lengthPrice = this.lengths.find(i => i.value === this.ruleForm.length).price
+      const colorPrice = this.colors.find(i => i.color === this.ruleForm.color).price
+      return sum([shapePrice, lengthPrice, colorPrice])
+    }
+  },
   methods: {
-    // 无论那个款式，0-14 -> 10, 16-22->18, 24-26->26
+    // 无论哪个款式，0-14 -> 10, 16-22->18, 24-26->26
     getInch (val) {
       if (['8', '10', '12', '14'].includes(val)) {
         return '10inch'
@@ -139,7 +147,9 @@ export default {
       }
     },
     async submitForm (formName) {
+      // 获取图片信息
       const info = JSON.parse(window.localStorage.getItem('info'))
+      // 款式 0-14 -> 10, 16-22->18, 24-26->26
       const newInch = this.getInch(this.ruleForm.length)
       const params = [this.ruleForm.shape, this.ruleForm.color, newInch]
       const newData = {
@@ -161,7 +171,10 @@ export default {
           window.localStorage.setItem('filePath', data.file_path)
           window.localStorage.setItem('request_id', data.request_id)
           this.$router.push({
-            path: '/step2'
+            path: '/step2',
+            query: {
+              sumPrice: this.sumPrice
+            }
           })
         })
         .catch((e) => {

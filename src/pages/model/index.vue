@@ -3,7 +3,7 @@
     <el-col :xs="24" :sm="{ span: 5, offset: 4 }" :lg="{ span: 6, offset: 4 }">
       <div class="model">
         <model-viewer
-          id="model"
+          :src="filePath"
           autoplay
           camera-controls
           field-of-view="45deg"
@@ -13,6 +13,7 @@
           class="model-img"
         />
       </div>
+        <p class="price">$ {{sumPrice}}.00</p>
     </el-col>
     <el-col :xs="24" :sm="8" class="btns">
       <el-link
@@ -38,20 +39,23 @@
 </template>
 <script>
 // import ModelViewer from '@google/model-viewer'
-
 export default {
   data () {
     return {
       loading: false
     }
   },
-  mounted () {
-    this.getModleFile()
-  },
+
   computed: {
     message () {
       const path = this.$route.query.filePath
       return `https://fdwig.com/#/model?filePath=${path}`
+    },
+    sumPrice () {
+      return this.$route.query.sumPrice
+    },
+    filePath () {
+      return this.$route.query.filePath
     }
   },
   methods: {
@@ -63,10 +67,7 @@ export default {
       })
       window.open(routeUrl.href, '_all')
     },
-    getModleFile () {
-      const filePath = this.$route.query.filePath
-      document.getElementById('model').src = filePath
-    },
+
     onCopy (e) {
       this.$message({
         message: 'Processing, please try again after timeout',
@@ -95,6 +96,12 @@ export default {
       width: 100%;
       height: 100%;
     }
+  }
+  .price{
+    width: 100px;
+    margin: 20px 30px;
+    font-size: 20px;
+    font-weight: 600;
   }
   .btns {
     display: flex;
