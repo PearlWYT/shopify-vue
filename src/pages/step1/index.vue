@@ -1,92 +1,93 @@
 <template>
-<div
-   v-loading="loading"
+  <div
+    v-loading="loading"
     element-loading-text="Desperately Loading"
     element-loading-spinner="el-icon-loading"
     element-loading-background="rgba(0, 0, 0, 0.8)"
->
- <div class="form_popover">
-    <el-popover
-    placement="top-start"
-    title="标题"
-    width="300"
-    trigger="hover"
-    >
-    <img alt="Empty bag" width="100%" src="static/WechatIMG68.jpeg" />
-    <el-button type="text" slot="reference" icon="el-icon-warning">Wig Specs</el-button>
-  </el-popover>
- </div>
-  <el-form
-    :model="ruleForm"
-    ref="ruleForm"
-    label-width="85px"
-    class="demo-ruleForm"
   >
-
-    <el-row :gutter="20">
-      <el-col :xs="23" :sm="12">
-        <el-form-item label="Hair style" prop="shape">
-          <el-select
-            class="stemp-select"
-            v-model="ruleForm.shape"
-            placeholder="Please select Hair style"
-          >
-            <el-option
-              v-for="item in shapes"
-              :key="item.value"
-              :value="item.value"
-              :label="item.label"
+    <div class="form_popover">
+      <el-popover
+        placement="top-start"
+        title="标题"
+        width="300"
+        trigger="hover"
+      >
+        <img alt="Empty bag" width="100%" src="static/WechatIMG68.jpeg" />
+        <el-button type="text" slot="reference" icon="el-icon-warning"
+          >Wig Specs</el-button
+        >
+      </el-popover>
+    </div>
+    <el-form
+      :model="ruleForm"
+      ref="ruleForm"
+      label-width="85px"
+      class="demo-ruleForm"
+    >
+      <el-row :gutter="20">
+        <el-col :xs="23" :sm="12">
+          <el-form-item label="Hair style" prop="shape">
+            <el-select
+              class="stemp-select"
+              v-model="ruleForm.shape"
+              placeholder="Please select Hair style"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="23" :sm="12">
-        <el-form-item label="Hair Color" prop="color">
-          <el-select
-            class="stemp-select"
-            v-model="ruleForm.color"
-            placeholder="Please select Hair Color"
-          >
-            <el-option
-              v-for="item in colors"
-              :key="item.color"
-              :value="item.color"
-              :label="item.name"
+              <el-option
+                v-for="item in shapes"
+                :key="item.value"
+                :value="item.value"
+                :label="item.label"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="23" :sm="12">
+          <el-form-item label="Hair Color" prop="color">
+            <el-select
+              class="stemp-select"
+              v-model="ruleForm.color"
+              placeholder="Please select Hair Color"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-      <el-col :xs="23" :sm="12">
-        <el-form-item label="Hair Length" prop="color">
-          <el-select
-            class="stemp-select"
-            v-model="ruleForm.length"
-            placeholder="Please select Hair Length"
-          >
-            <el-option
-              v-for="length in lengths"
-              :key="length.label"
-              :value="length.value"
-              :label="length.label"
+              <el-option
+                v-for="item in colors"
+                :key="item.color"
+                :value="item.color"
+                :label="item.name"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :xs="23" :sm="12">
+          <el-form-item label="Hair Length" prop="color">
+            <el-select
+              class="stemp-select"
+              v-model="ruleForm.length"
+              placeholder="Please select Hair Length"
             >
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-form-item >
-      <el-button class="btn" type="primary" @click="submitForm('ruleForm')">
-        Next
+              <el-option
+                v-for="length in lengths"
+                :key="length.label"
+                :value="length.value"
+                :label="length.label"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item>
+        <el-button class="btn" type="primary" @click="submitForm('ruleForm')">
+          Next
         </el-button>
-    </el-form-item>
-  </el-form>
-</div>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script>
-import {sum} from 'lodash'
+import { sum } from 'lodash'
 export default {
   name: 'Stemp1',
   data () {
@@ -99,18 +100,18 @@ export default {
       visible: false,
       loading: false,
       shapes: [
-        { label: 'ST', value: 'st', price: 189},
-        { label: 'Body', value: 'body', price: 199},
-        { label: 'Curls', value: 'curls', price: 199},
+        { label: 'ST', value: 'st', price: 189 },
+        { label: 'Body', value: 'body', price: 199 },
+        { label: 'Curls', value: 'curls', price: 199 },
         { label: 'Yaki', value: 'yaki', price: 199 },
-        { label: 'Bob', value: 'bob', price: 79}
+        { label: 'Bob', value: 'bob', price: 79 }
       ],
       lengths: [
         { label: '8 Inch', value: '8', price: 0 },
         { label: '10 Inch', value: '10', price: 0 },
-        { label: '12 Inch', value: '12', price: 0},
-        { label: '14 Inch', value: '14', price: 0},
-        { label: '16 Inch', value: '16', price: 0},
+        { label: '12 Inch', value: '12', price: 0 },
+        { label: '14 Inch', value: '14', price: 0 },
+        { label: '16 Inch', value: '16', price: 0 },
         { label: '18 Inch ', value: '18', price: 10 },
         { label: '20 Inch ', value: '20', price: 30 },
         { label: '22 Inch ', value: '22', price: 40 },
@@ -119,8 +120,8 @@ export default {
       ],
       colors: [
         { color: 'black', name: 'Black', price: 0 },
-        { color: 'winered', name: 'Wine Red', price: 10},
-        { color: 'darkpurple', name: 'Dark Purple', price: 10},
+        { color: 'winered', name: 'Wine Red', price: 10 },
+        { color: 'darkpurple', name: 'Dark Purple', price: 10 },
         { color: 'blue', name: 'Blue', price: 10 },
         { color: 'platinumblonde', name: 'Platinum Blonde', price: 10 }
       ]
@@ -129,9 +130,13 @@ export default {
   computed: {
     // 获取总价格
     sumPrice () {
-      const shapePrice = this.shapes.find(i => i.value === this.ruleForm.shape).price
-      const lengthPrice = this.lengths.find(i => i.value === this.ruleForm.length).price
-      const colorPrice = this.colors.find(i => i.color === this.ruleForm.color).price
+      const shapePrice = this.shapes.find(i => i.value === this.ruleForm.shape)
+        .price
+      const lengthPrice = this.lengths.find(
+        i => i.value === this.ruleForm.length
+      ).price
+      const colorPrice = this.colors.find(i => i.color === this.ruleForm.color)
+        .price
       return sum([shapePrice, lengthPrice, colorPrice])
     }
   },
@@ -173,11 +178,12 @@ export default {
           this.$router.push({
             path: '/step2',
             query: {
-              sumPrice: this.sumPrice
+              sumPrice: this.sumPrice,
+              shape: this.ruleForm.shape
             }
           })
         })
-        .catch((e) => {
+        .catch(e => {
           this.notificationVisible = 'Internal Server Error'
           this.isLoadervisible = false
         })
@@ -191,19 +197,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-.form_popover{
+.form_popover {
   margin: 20px;
   display: flex;
 }
 .stemp-select {
   width: 80%;
 }
-.btn{
+.btn {
   float: right;
   margin-right: 10%;
   margin-top: 10%;
 }
-.el-loading-mask{
+.el-loading-mask {
   height: 100vh;
 }
 </style>

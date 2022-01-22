@@ -179,9 +179,9 @@ export default {
         { label: 'Pre-plucked HairLine', value: 'pre-plucked hair line', price: 0 }
       ],
       capSizes: [
-        { label: 'Average', value: 'average', price: 0},
+        { label: 'Average', value: 'average', price: 0 },
         { label: 'Petite', value: 'petite', price: 0 },
-        { label: 'Large', value: 'large', price: 0},
+        { label: 'Large', value: 'large', price: 0 },
         { label: 'Custom ', value: 'custom', price: 10 }
       ],
       addElasticBands: [
@@ -255,6 +255,7 @@ export default {
             this.$router.push({
               path: '/model',
               query: {
+                shape: this.$route.query.shape,
                 filePath: this.filePath,
                 sumPrice: this.sumPrice2
               }

@@ -13,17 +13,17 @@
           class="model-img"
         />
       </div>
-        <p class="price">$ {{sumPrice}}.00</p>
+      <p class="price">$ {{ sumPrice }}.00</p>
     </el-col>
     <el-col :xs="24" :sm="8" class="btns">
       <el-link
         class="btn"
         href="https://fdwig.com/collections/all"
         target="_all"
-        >Return to Customizer</el-link
+        >Return TO Customizer</el-link
       >
       <el-link class="btn" href="https://fdwig.com/cart" target="_cart"
-        >Return to Cart</el-link
+        >Return TO Cart</el-link
       >
       <button
         v-clipboard:copy="message"
@@ -34,6 +34,9 @@
       >
         SHARE
       </button>
+      <el-link class="btn" :href='`https://fdwig.com/products/${shapeUrl}`'  target="_cart">
+        RETURN TO PRODUCT
+      </el-link>
     </el-col>
   </el-row>
 </template>
@@ -42,7 +45,9 @@
 export default {
   data () {
     return {
-      loading: false
+      loading: false,
+      form_type: '',
+      id: ''
     }
   },
 
@@ -56,9 +61,20 @@ export default {
     },
     filePath () {
       return this.$route.query.filePath
+    },
+    shapeUrl () {
+      if (this.$route.query.shape === 'st') {
+        return 'straight'
+      } else if (this.$route.query.shape === 'curls') {
+        return 'small-curl'
+      } else {
+        return this.$route.query.shape
+      }
     }
   },
   methods: {
+    // 跳转card
+    hadleAddToCard () {},
     // 返回产品列表
     handleReturnAll () {
       let routeUrl = this.$router.resolve({
@@ -97,7 +113,7 @@ export default {
       height: 100%;
     }
   }
-  .price{
+  .price {
     width: 100px;
     margin: 20px 30px;
     font-size: 20px;
