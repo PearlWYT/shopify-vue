@@ -15,26 +15,26 @@
       </div>
       <p class="price">$ {{ sumPrice }}.00</p>
     </el-col>
-    <el-col :xs="24" :sm="8" class="btns">
+    <el-col :xs="24" :sm="8" :class="['btns',isMobile > 768?'btns-big':'' ]">
       <el-link
-        class="btn"
+        :class="['btn',isMobile > 768?'btn-big':'' ]"
         href="https://fdwig.com/collections/all"
         target="_all"
-        >Return TO Customizer</el-link
+        >RETURN TO CUSTOMIZER</el-link
       >
-      <el-link class="btn" href="https://fdwig.com/cart" target="_cart"
-        >Return TO Cart</el-link
+      <el-link :class="['btn',isMobile > 768?'btn-big':'' ]" href="https://fdwig.com/cart" target="_cart"
+        >RETURN TO CART</el-link
       >
       <button
         v-clipboard:copy="message"
         v-clipboard:success="onCopy"
         v-clipboard:error="onError"
         type="button"
-        class="btn"
+        :class="['btn',isMobile > 768?'btn-big':'' ]"
       >
         SHARE
       </button>
-      <el-link class="btn" :href='`https://fdwig.com/products/${shapeUrl}`'  target="_cart">
+      <el-link :class="['btn',isMobile > 768?'btn-big':'' ]" :href='`https://fdwig.com/products/${shapeUrl}`'  target="_cart">
         RETURN TO PRODUCT
       </el-link>
     </el-col>
@@ -52,9 +52,13 @@ export default {
   },
 
   computed: {
+    isMobile () {
+      let width = document.body.clientWidth
+      return width
+    },
     message () {
-      const path = this.$route.query.filePath
-      return `https://fdwig.com/#/model?filePath=${path}`
+      const {filePath, sumPrice, shape} = this.$route.query
+      return `https://fdwig.com/#/model?shape=${shape}&sumPrice=${sumPrice}&filePath=${filePath}`
     },
     sumPrice () {
       return this.$route.query.sumPrice
@@ -121,15 +125,30 @@ export default {
   }
   .btns {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     .btn {
       margin: 20px 0 0;
-      width: 150px;
-      height: 42px;
+      flex:0 0 48%;
+      margin-right: 2%;
+      height: 44px;
       color: #fff;
       background: #000;
       cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      border: none;
     }
   }
+  .btns-big{
+    flex-direction: column;
+    .btn-big{
+      width: 200px;
+    height: 44px;
+    line-height: 44px;
+
+    }
+  }
+
 }
 </style>

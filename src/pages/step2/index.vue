@@ -256,8 +256,8 @@ export default {
               path: '/model',
               query: {
                 shape: this.$route.query.shape,
-                filePath: this.filePath,
-                sumPrice: this.sumPrice2
+                sumPrice: this.sumPrice2,
+                filePath: this.filePath
               }
             })
           } else if (data.status === 'timeout') {
