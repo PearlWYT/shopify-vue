@@ -38,7 +38,13 @@
             @crop-moving="cropMoving"
           ></vue-cropper>
 
-          <div class="cropper-show">
+          <div
+          :style="{
+              width: previews.w + 'px',
+              height: previews.h + 'px',
+              overflow: 'hidden',
+            }"
+           class="cropper-show">
             <div :style="previews.div">
               <img
                 :style="previews.img"
@@ -250,7 +256,7 @@ export default {
   }
   .cropper-show {
     position: absolute;
-    opacity: 0.3;
+    opacity: 0.2;
     border: 3px dashed red;
     pointer-events: none;
     top: 0;
