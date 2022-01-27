@@ -22,7 +22,7 @@
       :model="ruleForm"
       ref="ruleForm"
       label-width="85px"
-      class="demo-ruleForm"
+      class="ruleForm"
     >
       <el-row :gutter="20">
         <el-col :xs="23" :sm="12">
@@ -77,6 +77,7 @@
           </el-form-item>
         </el-col>
       </el-row>
+
       <el-form-item>
         <el-button class="btn" type="primary" @click="submitForm('ruleForm')">
           Next
@@ -200,6 +201,9 @@ export default {
 .form_popover {
   margin: 20px;
   display: flex;
+}
+.ruleForm{
+  width: 100%;
 }
 .stemp-select {
   width: 80%;

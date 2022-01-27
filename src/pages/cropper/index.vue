@@ -30,29 +30,29 @@
             :auto-crop-width="option.autoCropWidth"
             :auto-crop-height="option.autoCropHeight"
             :center-box="option.centerBox"
-            :high="option.high"
-            mode="cover"
-            :max-img-size="option.max"
+            :hight="option.hight"
+            :mode="option.mode"
+            :maxImgSize="option.maxImgSize"
             @real-time="realTime"
             @img-load="imgLoad"
             @crop-moving="cropMoving"
           ></vue-cropper>
+        </div>
 
-          <div
+        <div
           :style="{
-              width: previews.w + 'px',
-              height: previews.h + 'px',
-              overflow: 'hidden',
-            }"
-           class="cropper-show">
-            <div :style="previews.div">
-              <img
-                :style="previews.img"
-                src="static/face.png"
-                alt=""
-                class="previewImg"
-              />
-            </div>
+            width: previews.w + 'px',
+            height: previews.h + 'px',
+            overflow: 'hidden',
+            border: '3px dashed red',
+            position: 'absolute',
+            opacity: '0.2',
+            pointerEvents: 'none',
+          }"
+          :class="isMobile > 768 ? 'preview-style-big' : 'preview-style'"
+        >
+          <div :style="previews.div">
+            <img :style="previews.img" src="static/face.png" alt="" />
           </div>
         </div>
       </el-col>
@@ -67,7 +67,7 @@
             style="position: absolute; clip: rect(0 0 0 0)"
             accept="image/*"
             mutiple="mutiple"
-            @change="uploadImg($event, 1)"
+            @change="uploadImg($event)"
           />
         </el-col>
         <el-col :xs="12" :sm="6">
@@ -94,14 +94,6 @@ import { VueCropper } from 'vue-cropper'
 import { compressAccurately } from 'image-conversion'
 export default {
   name: 'Cropper',
-  // setup (props, { root }) {
-  //   const handleNextClick = () => {
-  //     return root.$router.push('/step1')
-  //   }
-  //   return {
-  //     handleNextClick
-  //   }
-  // },
   components: { VueCropper },
   data () {
     return {
@@ -110,7 +102,6 @@ export default {
       crap: false,
       previews: {},
       imgDeafult: 'static/mark.jpeg',
-
       option: {
         img: 'static/mark.jpeg',
         size: 1,
@@ -127,15 +118,23 @@ export default {
         // autoCropHeight: 320,
         centerBox: false,
         high: true,
-        max: 99999
+        height: true,
+        infoTrue: false, // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
+        enlarge: 1, // 图片根据截图框输出比例倍数
+        mode: 'cover', // 图片默认渲染方式 // 图片默认渲染方式
+        maxImgSize: 375
       },
-      show: true,
       fixed: true,
       fixedNumber: [3, 4]
     }
   },
   mounted () {},
-
+  computed: {
+    isMobile () {
+      let width = document.body.clientWidth
+      return width
+    }
+  },
   methods: {
     handleNextClick () {
       return this.$router.push('/step1')
@@ -149,7 +148,6 @@ export default {
       this.$refs.cropper.refresh()
     },
     // 实时预览函数
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     realTime (data) {
       this.previews = data
     },
@@ -197,7 +195,7 @@ export default {
       }
     },
 
-    uploadImg (e, num) {
+    uploadImg (e) {
       // 上传图片
       // this.option.img
       const file = e.target.files[0]
@@ -207,32 +205,22 @@ export default {
       const reader = new FileReader()
       reader.onload = (e) => {
         let data
-        if (typeof e.target.result === 'object') {
-          // 把Array Buffer转化为blob 如果是base64不需要
-          const blob = new Blob([e.target.result])
-          data = window.URL.createObjectURL(blob)
-          // const file = new File([blob], '');
-        } else {
-          data = e.target.result
-        }
-        if (num === 1) {
-          this.option.img = data
-          this.option.name = file.name
-          this.option.outputType = file.name.split('/')[1]
-        } else if (num === 2) {
-          this.example2.img = data
-        }
+        // 把Array Buffer转化为blob
+        const blob = new Blob([e.target.result])
+        data = window.URL.createObjectURL(blob)
+
+        this.option.img = data
+        this.option.name = file.name
+        this.option.outputType = file.name.split('/')[1]
       }
-      // 转化为base64
-      // reader.readAsDataURL(file)
       // 转化为blob
       reader.readAsArrayBuffer(file)
     },
     imgLoad (msg) {
-      // console.log(msg);
+      // console.log('msg', msg)
     },
     cropMoving (data) {
-      // console.log(data, "截图框当前坐标");
+      // console.log('截图框当前坐标', data)
     },
     handleShow (e) {
       e.stoppropagation()
@@ -249,21 +237,17 @@ export default {
     margin: 30px 0;
   }
   .cut {
-    position: sticky;
     width: auto;
     height: 57vh;
     background: #c2e7b0;
   }
-  .cropper-show {
-    position: absolute;
-    opacity: 0.2;
-    border: 3px dashed red;
-    pointer-events: none;
-    top: 0;
-    left: 11%;
-    .previewImg {
-      margin-left: -40%;
-    }
+  .preview-style {
+    top: 10px;
+    transform: translateX(10%);
+  }
+  .preview-style-big {
+    top: 0px;
+    transform: translateX(16%);
   }
 }
 .test-button {
@@ -273,10 +257,6 @@ export default {
     width: 120px;
     margin-top: 16px;
   }
-}
-.img-mark {
-  width: 100%;
-  height: 100%;
 }
 .upload {
   color: #67c23a;
