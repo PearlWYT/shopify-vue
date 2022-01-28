@@ -15,7 +15,7 @@
     class="demo-ruleForm"
   >
 
-    <el-row :gutter="20">
+    <el-row >
       <el-col :xs="22" :sm="12">
         <el-form-item label="Hair Density " prop="shape">
           <el-select
@@ -122,7 +122,7 @@
     </el-row>
 
     <el-form-item >
-      <el-button class="btn" type="primary" @click="submitForm('ruleForm')">
+      <el-button class="btn-step" type="primary" @click="submitForm('ruleForm')">
         Next
         </el-button>
     </el-form-item>
@@ -306,7 +306,7 @@ export default {
 .stemp-select {
   width: 80%;
 }
-.btn{
+.btn-step{
   float: right;
   margin-right: 10%;
   margin-top: 10%;

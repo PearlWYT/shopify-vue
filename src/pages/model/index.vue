@@ -58,7 +58,7 @@ export default {
     },
     message () {
       const {filePath, sumPrice, shape} = this.$route.query
-      return `https://fdwig.com/#/model?shape=${shape}&sumPrice=${sumPrice}&filePath=${filePath}`
+      return `http://3.91.31.238/#/model?shape=${shape}&sumPrice=${sumPrice}&filePath=${filePath}`
     },
     sumPrice () {
       return this.$route.query.sumPrice

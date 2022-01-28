@@ -2,7 +2,7 @@
   <div id="cropper">
     <el-row class="cropper-row">
       <el-col :xs="24" :sm="{ span: 8, offset: 8 }">
-        <div :class="isMobile?'cut':'cut-big'">
+        <div :class="isMobile < 768?'cut':'cut-big'">
           <vue-cropper
             ref="cropper"
             :img="option.img"
@@ -54,7 +54,7 @@
       </el-col>
     </el-row>
     <div class="test-button">
-      <el-row :gutter="10">
+      <el-row :gutter="isMobile > 768 ? 10 : 0">
         <el-col :xs="12" :sm="6">
           <label class="upload btn" for="uploads">UPLOAD</label>
           <input
@@ -247,8 +247,8 @@ export default {
     background: #c2e7b0;
   }
   .cut-big{
-    width: 480px;
-    height: 640px;
+    width: 390px;
+    height: 520px;
     background: #c2e7b0;
   }
   .preview-style {
@@ -256,8 +256,8 @@ export default {
     transform: translateX(11%);
   }
   .preview-style-big {
-    top: 45px;
-    transform: translateX(12%);
+    top: 50px;
+    transform: translateX(11%);
   }
 }
 .test-button {

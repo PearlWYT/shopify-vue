@@ -79,7 +79,7 @@
       </el-row>
 
       <el-form-item>
-        <el-button class="btn" type="primary" @click="submitForm('ruleForm')">
+        <el-button class="btn-step" type="primary" @click="submitForm('ruleForm')">
           Next
         </el-button>
       </el-form-item>
@@ -208,7 +208,7 @@ export default {
 .stemp-select {
   width: 80%;
 }
-.btn {
+.btn-step {
   float: right;
   margin-right: 10%;
   margin-top: 10%;
