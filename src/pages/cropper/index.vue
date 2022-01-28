@@ -27,7 +27,6 @@
             @crop-moving="cropMoving"
           ></vue-cropper>
         </div>
-
         <div
           :style="{
             width: previews.w + 'px',
@@ -40,8 +39,16 @@
           }"
           :class="isMobile > 768 ? 'preview-style-big' : 'preview-style'"
         >
-          <div :style="previews.div">
-            <img :style="previews.img" src="static/face.png" alt="" />
+          <div
+          :style="{
+            width:previews.w + 'px' ,
+            height:previews.h + 'px',
+            background:'url(static/face.png) no-repeat',
+            backgroundPosition:'center center',
+            backgroundSize:'100% 100%'
+            }"
+            >
+            <!-- <img :style="previews.img" src="static/face.png" alt="" /> -->
           </div>
         </div>
       </el-col>
