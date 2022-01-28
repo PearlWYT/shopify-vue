@@ -1,18 +1,8 @@
 <template name="Cropper">
   <div id="cropper">
-    <div class="cropper-desc">
-      Please upload a frontal face photo that matches the contour of the
-      reference image we provide
-    </div>
-    <div class="cropper-desc" style="color: #000">
-      Our Virtual Try On Feature is still under testing. The refinement of 3D
-      images, the matching between avatars and wigs, and the transmission speed
-      are all being optimized. We apologize for any inconvenience this might
-      cause. Please come back for better experience.
-    </div>
     <el-row class="cropper-row">
       <el-col :xs="24" :sm="{ span: 8, offset: 8 }">
-        <div class="cut">
+        <div :class="isMobile?'cut':'cut-big'">
           <vue-cropper
             ref="cropper"
             :img="option.img"
@@ -32,7 +22,6 @@
             :center-box="option.centerBox"
             :hight="option.hight"
             :mode="option.mode"
-            :maxImgSize="option.maxImgSize"
             @real-time="realTime"
             @img-load="imgLoad"
             @crop-moving="cropMoving"
@@ -44,7 +33,7 @@
             width: previews.w + 'px',
             height: previews.h + 'px',
             overflow: 'hidden',
-            border: '3px dashed red',
+            border: '2px dashed red',
             position: 'absolute',
             opacity: '0.2',
             pointerEvents: 'none',
@@ -87,6 +76,16 @@
         </el-col>
       </el-row>
     </div>
+    <div class="cropper-desc">
+      Please upload a frontal face photo that matches the contour of the
+      reference image we provide
+    </div>
+    <div class="cropper-desc" style="color: #000">
+      Our Virtual Try On Feature is still under testing. The refinement of 3D
+      images, the matching between avatars and wigs, and the transmission speed
+      are all being optimized. We apologize for any inconvenience this might
+      cause. Please come back for better experience.
+    </div>
   </div>
 </template>
 <script>
@@ -121,8 +120,7 @@ export default {
         height: true,
         infoTrue: false, // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
         enlarge: 1, // 图片根据截图框输出比例倍数
-        mode: 'cover', // 图片默认渲染方式 // 图片默认渲染方式
-        maxImgSize: 375
+        mode: 'cover' // 图片默认渲染方式 // 图片默认渲染方式
       },
       fixed: true,
       fixedNumber: [3, 4]
@@ -231,23 +229,28 @@ export default {
 <style lang="scss">
 #cropper {
   max-width: 1272px;
-  padding: 0 16px;
   margin: 0 auto;
   .cropper-row {
     margin: 30px 0;
   }
   .cut {
-    width: auto;
-    height: 57vh;
+    width: 360px;
+    height: 480px;
+    margin: 0 auto;
+    background: #c2e7b0;
+  }
+  .cut-big{
+    width: 480px;
+    height: 640px;
     background: #c2e7b0;
   }
   .preview-style {
-    top: 10px;
-    transform: translateX(10%);
+    top: 48px;
+    transform: translateX(11%);
   }
   .preview-style-big {
-    top: 0px;
-    transform: translateX(16%);
+    top: 45px;
+    transform: translateX(12%);
   }
 }
 .test-button {
