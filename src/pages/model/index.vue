@@ -90,13 +90,13 @@ export default {
 
     onCopy (e) {
       this.$message({
-        message: 'Processing, please try again after timeout',
+        message: 'Succeed to copy url',
         type: 'success'
       })
     },
     onError (e) {
       this.$message({
-        message: 'Failed to copy texts',
+        message: 'Failed to copy url',
         type: 'waring'
       })
     }
